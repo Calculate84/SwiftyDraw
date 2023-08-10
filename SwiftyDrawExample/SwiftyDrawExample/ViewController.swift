@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         drawView.layer.shadowRadius = 3
         
         if #available(iOS 9.1, *) {
-            drawView.allowedTouchTypes = [.finger, .pencil]
+            drawView.allowedTouchTypes = [.pencil]
         }
     }
     

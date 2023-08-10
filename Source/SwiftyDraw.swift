@@ -113,7 +113,6 @@ open class SwiftyDrawView: UIView {
     private var previousPreviousPoint: CGPoint = .zero
     
     // For pencil interactions
-    @available(iOS 12.1, *)
     lazy private var pencilInteraction = UIPencilInteraction()
     
     /// Save the previous brush for Apple Pencil interaction Switch to previous tool
