@@ -63,23 +63,37 @@ public enum BlendMode: String, Codable {
 }
 
 public struct Brush: Codable {
-    public var color: UIColor = .black
+    public var color: UIColor
     /// Original brush width set when initializing the brush. Not affected by updating the brush width. Used to determine adjusted width
-    private(set) var originalWidth: CGFloat = 3
-    public var width: CGFloat = 3
-    public var opacity: CGFloat = 1
+    private(set) var originalWidth: CGFloat
+    public var width: CGFloat
+    public var opacity: CGFloat
     
-    public var adjustedWidthFactor: CGFloat = 1
+    public var adjustedWidthFactor: CGFloat
     
     /// Allows for actually erasing content, by setting it to `.clear`. Default is `.normal`
-    public var blendMode: BlendMode = .normal
+    public var blendMode: BlendMode
     
-    public var borderColor: UIColor = .clear
-    public var borderWidthAsPercentage: CGFloat = 0
+    public var borderColor: UIColor
+    public var borderWidthAsPercentage: CGFloat
     
-    public var shadowOffset: CGSize = .zero
-    public var shadowColor: UIColor = .clear
-    public var shadowRadius: CGFloat = 0
+    public var shadowOffset: CGSize
+    public var shadowColor: UIColor
+    public var shadowRadius: CGFloat
+    
+    public init(color: UIColor = .black, originalWidth: CGFloat = 3, width: CGFloat = 3, opacity: CGFloat = 1, adjustedWidthFactor: CGFloat = 1, blendMode: BlendMode = .normal, borderColor: UIColor = .clear, borderWidthAsPercentage: CGFloat = 0, shadowOffset: CGSize = .zero, shadowColor: UIColor = .clear, shadowRadius: CGFloat = 0) {
+        self.color = color
+        self.originalWidth = originalWidth
+        self.width = width
+        self.opacity = opacity
+        self.adjustedWidthFactor = adjustedWidthFactor
+        self.blendMode = blendMode
+        self.borderColor = borderColor
+        self.borderWidthAsPercentage = borderWidthAsPercentage
+        self.shadowOffset = shadowOffset
+        self.shadowColor = shadowColor
+        self.shadowRadius = shadowRadius
+    }
     
     private func adjustedWidth(for touch: UITouch) -> CGFloat {
         guard #available(iOS 9.1, *), touch.type == .pencil else { return originalWidth }
