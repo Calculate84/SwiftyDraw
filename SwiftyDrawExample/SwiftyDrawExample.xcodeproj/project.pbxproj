@@ -13,7 +13,6 @@
 		1671B15D1DE8CBA100ED5239 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1671B15C1DE8CBA100ED5239 /* Assets.xcassets */; };
 		1671B1601DE8CBA100ED5239 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1671B15E1DE8CBA100ED5239 /* LaunchScreen.storyboard */; };
 		882DC28322202B8A00B03866 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882DC28222202B8A00B03866 /* Extensions.swift */; };
-		88AF845922677ABC0070277F /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AF845822677ABC0070277F /* Color.swift */; };
 		94CEF9EF2168F8350036EF15 /* SwiftyDraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEF9ED2168F8350036EF15 /* SwiftyDraw.swift */; };
 		94CEF9F02168F8350036EF15 /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEF9EE2168F8350036EF15 /* Brush.swift */; };
 /* End PBXBuildFile section */
@@ -27,7 +26,6 @@
 		1671B15F1DE8CBA100ED5239 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1671B1611DE8CBA100ED5239 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		882DC28222202B8A00B03866 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		88AF845822677ABC0070277F /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		94CEF9ED2168F8350036EF15 /* SwiftyDraw.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyDraw.swift; sourceTree = "<group>"; };
 		94CEF9EE2168F8350036EF15 /* Brush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brush.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,7 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				94CEF9ED2168F8350036EF15 /* SwiftyDraw.swift */,
-				88AF845822677ABC0070277F /* Color.swift */,
 				94CEF9EE2168F8350036EF15 /* Brush.swift */,
 			);
 			name = Source;
@@ -117,7 +114,7 @@
 				TargetAttributes = {
 					1671B1511DE8CBA100ED5239 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 578YR5HPG3;
+						DevelopmentTeam = 2N863RSUNH;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
@@ -164,7 +161,6 @@
 				94CEF9EF2168F8350036EF15 /* SwiftyDraw.swift in Sources */,
 				1671B1581DE8CBA100ED5239 /* ViewController.swift in Sources */,
 				1671B1561DE8CBA100ED5239 /* AppDelegate.swift in Sources */,
-				88AF845922677ABC0070277F /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,9 +299,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 578YR5HPG3;
+				DEVELOPMENT_TEAM = 2N863RSUNH;
 				INFOPLIST_FILE = SwiftyDrawExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.linus-geffarth.SwiftyDrawExample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -318,9 +314,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 578YR5HPG3;
+				DEVELOPMENT_TEAM = 2N863RSUNH;
 				INFOPLIST_FILE = SwiftyDrawExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.linus-geffarth.SwiftyDrawExample";
 				PRODUCT_NAME = "$(TARGET_NAME)";

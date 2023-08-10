@@ -160,19 +160,34 @@ open class SwiftyDrawView: UIView {
         guard let context: CGContext = UIGraphicsGetCurrentContext() else { return }
         
         for item in drawItems {
+            let fillWidth = item.brush.width * (1 - item.brush.borderWidthAsPercentage)
+            let hasBorder = item.brush.borderWidthAsPercentage > 0
+                        
             context.setLineCap(.round)
             context.setLineJoin(.round)
-            context.setLineWidth(item.brush.width)
+            context.setLineWidth(fillWidth)
             context.setBlendMode(item.brush.blendMode.cgBlendMode)
             context.setAlpha(item.brush.opacity)
-            if (item.isFillPath)
-            {
-                context.setFillColor(item.brush.color.uiColor.cgColor)
+            
+            context.setShadow(offset: item.brush.shadowOffset, blur: item.brush.shadowRadius, color: item.brush.shadowColor.cgColor)
+            
+            let fillCGColor = hasBorder ? item.brush.borderColor.cgColor : item.brush.color.cgColor
+            
+            if (item.isFillPath) {
+                context.setFillColor(fillCGColor)
                 context.addPath(item.path)
                 context.fillPath()
+            } else {
+                context.setStrokeColor(fillCGColor)
+                context.addPath(item.path)
+                context.strokePath()
             }
-            else {
-                context.setStrokeColor(item.brush.color.uiColor.cgColor)
+            
+            if hasBorder {
+                let borderWidth = item.brush.width * item.brush.borderWidthAsPercentage
+                
+                context.setLineWidth(borderWidth)
+                context.setStrokeColor(item.brush.color.cgColor)
                 context.addPath(item.path)
                 context.strokePath()
             }
@@ -190,8 +205,11 @@ open class SwiftyDrawView: UIView {
         
         setTouchPoints(touch, view: self)
         firstPoint = touch.location(in: self)
-        let newLine = DrawItem(path: CGMutablePath(),
-                           brush: Brush(color: brush.color.uiColor, width: brush.width, opacity: brush.opacity, blendMode: brush.blendMode), isFillPath: drawMode != .draw && drawMode != .line ? shouldFillPath : false)
+        let newLine = DrawItem(
+            path: CGMutablePath(),
+            brush: brush, isFillPath: drawMode != .draw && drawMode != .line ? shouldFillPath : false
+        )
+        
         addLine(newLine)
     }
     
@@ -209,33 +227,36 @@ open class SwiftyDrawView: UIView {
         case .line:
             drawItems.removeLast()
             setNeedsDisplay()
-            let newLine = DrawItem(path: CGMutablePath(),
-                               brush: Brush(color: brush.color.uiColor, width: brush.width, opacity: brush.opacity, blendMode: brush.blendMode), isFillPath: false)
+            
+            let newLine = DrawItem(path: CGMutablePath(), brush: brush, isFillPath: false)
+            
             newLine.path.addPath(createNewStraightPath())
             addLine(newLine)
-            break
+            
         case .draw:
             let newPath = createNewPath()
+            
             if let currentPath = drawItems.last {
                 currentPath.path.addPath(newPath)
             }
-            break
+                        
         case .ellipse:
             drawItems.removeLast()
             setNeedsDisplay()
-            let newLine = DrawItem(path: CGMutablePath(),
-                               brush: Brush(color: brush.color.uiColor, width: brush.width, opacity: brush.opacity, blendMode: brush.blendMode), isFillPath: shouldFillPath)
+            
+            let newLine = DrawItem(path: CGMutablePath(), brush: brush, isFillPath: shouldFillPath)
+            
             newLine.path.addPath(createNewShape(type: .ellipse))
             addLine(newLine)
-            break
+            
         case .rect:
             drawItems.removeLast()
             setNeedsDisplay()
-            let newLine = DrawItem(path: CGMutablePath(),
-                               brush: Brush(color: brush.color.uiColor, width: brush.width, opacity: brush.opacity, blendMode: brush.blendMode), isFillPath: shouldFillPath)
+            
+            let newLine = DrawItem(path: CGMutablePath(), brush: brush, isFillPath: shouldFillPath)
+            
             newLine.path.addPath(createNewShape(type: .rectangle))
             addLine(newLine)
-            break
         }
     }
     

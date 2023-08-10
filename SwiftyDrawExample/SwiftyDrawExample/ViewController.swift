@@ -24,7 +24,15 @@ class ViewController: UIViewController {
         updateHistoryButtons()
         
         drawView.delegate = self
+        
         drawView.brush.width = 7
+        drawView.brush.borderWidthAsPercentage = 0.3
+        drawView.brush.borderColor = .green
+//        drawView.brush.shadowColor = .cyan
+//        drawView.brush.shadowRadius = 3
+        
+        drawView.layer.shadowColor = UIColor.red.cgColor
+        drawView.layer.shadowRadius = 3
         
         if #available(iOS 9.1, *) {
             drawView.allowedTouchTypes = [.finger, .pencil]
@@ -33,7 +41,7 @@ class ViewController: UIViewController {
     
     @IBAction func selectedColor(_ button: UIButton) {
         guard let color = button.backgroundColor else { return }
-        drawView.brush.color = Color(color)
+        drawView.brush.color = color
         deactivateEraser()
     }
     
@@ -98,7 +106,7 @@ class ViewController: UIViewController {
             fillModeButton.setTitle("activate fill mode", for: .normal)
         }
     }
-        
+
     @IBAction func changedWidth(_ slider: UISlider) {
         drawView.brush.width = CGFloat(slider.value)
     }
