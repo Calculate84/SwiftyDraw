@@ -88,7 +88,6 @@ open class SwiftyDrawView: UIView {
     /// Public SwiftyDrawView delegate
     @IBOutlet public weak var delegate: SwiftyDrawViewDelegate?
     
-    @available(iOS 9.1, *)
     public enum TouchType: Equatable, CaseIterable {
         case finger, pencil
         
@@ -102,7 +101,6 @@ open class SwiftyDrawView: UIView {
         }
     }
     /// Determines which touch types are allowed to draw; default: `[.finger, .pencil]` (all)
-    @available(iOS 9.1, *)
     public lazy var allowedTouchTypes: [TouchType] = [.finger, .pencil]
     
     public  var drawItems: [DrawItem] = []
@@ -405,7 +403,6 @@ extension Collection {
     }
 }
 
-@available(iOS 12.1, *)
 extension SwiftyDrawView : UIPencilInteractionDelegate{
     public func pencilInteractionDidTap(_ interaction: UIPencilInteraction) {
         let preference = UIPencilInteraction.preferredTapAction
