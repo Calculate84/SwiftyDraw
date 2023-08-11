@@ -71,7 +71,7 @@ open class SwiftyDrawView: UIView {
     /// Determines how touch gestures are treated
     /// draw - freehand draw
     /// line - draws straight lines **WARNING:** experimental feature, may not work properly.
-    public enum DrawMode { case draw, line, ellipse, rect }
+    public enum DrawMode { case draw, line, ellipse, rect, point }
     public var drawMode:DrawMode = .draw
     
     /// Determines whether paths being draw would be filled or stroked.
@@ -198,16 +198,23 @@ open class SwiftyDrawView: UIView {
             guard allowedTouchTypes.flatMap({ $0.uiTouchTypes }).contains(touch.type) else { return }
         }
         guard delegate?.swiftyDraw(shouldBeginDrawingIn: self, using: touch) ?? true else { return }
+        
         delegate?.swiftyDraw(didBeginDrawingIn: self, using: touch)
         
         setTouchPoints(touch, view: self)
         firstPoint = touch.location(in: self)
-        let newLine = DrawItem(
-            path: CGMutablePath(),
-            brush: brush, isFillPath: drawMode != .draw && drawMode != .line ? shouldFillPath : false
-        )
         
-        addLine(newLine)
+        switch drawMode {
+        case .point:
+            return
+        default:
+            let newLine = DrawItem(
+                path: CGMutablePath(),
+                brush: brush, isFillPath: drawMode != .draw && drawMode != .line ? shouldFillPath : false
+            )
+
+            addLine(newLine)
+        }
     }
     
     /// touchesMoves implementation to capture strokes
@@ -236,6 +243,26 @@ open class SwiftyDrawView: UIView {
             if let currentPath = drawItems.last {
                 currentPath.path.addPath(newPath)
             }
+            
+        case .point:
+            if !drawItems.isEmpty {
+                drawItems.removeLast()
+            }
+            
+            setNeedsDisplay()
+                        
+            let path = CGMutablePath()
+            
+            let width: CGFloat = 10.0
+            let height: CGFloat = 10.0
+            
+            let bounds = CGRect(x: currentPoint.x - width/2, y: currentPoint.y - height/2, width: width, height: height)
+            
+            path.addEllipse(in: bounds)
+            
+            let newLine = DrawItem(path: path, brush: brush, isFillPath: shouldFillPath)
+            
+            addLine(newLine)
                         
         case .ellipse:
             drawItems.removeLast()
@@ -339,12 +366,13 @@ open class SwiftyDrawView: UIView {
         let newPath = addSubPathToPath(subPath)
         return newPath
     }
-    
+        
     private func createNewShape(type :ShapeType, corner:CGPoint = CGPoint(x: 1.0, y: 1.0)) -> CGMutablePath {
         let pt1 : CGPoint = firstPoint
         let pt2 : CGPoint = currentPoint
         let width = abs(pt1.x - pt2.x)
         let height = abs(pt1.y - pt2.y)
+        
         let newPath = CGMutablePath()
         if width > 0, height > 0 {
             let bounds = CGRect(x: min(pt1.x, pt2.x), y: min(pt1.y, pt2.y), width: width, height: height)

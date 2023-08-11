@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         drawView.layer.shadowRadius = 3
         
         if #available(iOS 9.1, *) {
-            drawView.allowedTouchTypes = [.pencil]
+            drawView.allowedTouchTypes = [.finger, .pencil]
         }
     }
     
@@ -80,15 +80,19 @@ class ViewController: UIViewController {
         case 1:
             drawView.drawMode = .line
             fillModeButton.isHidden = true
-            break
+
         case 2:
             drawView.drawMode = .ellipse
             fillModeButton.isHidden = false
-            break
+            
         case 3:
             drawView.drawMode = .rect
             fillModeButton.isHidden = false
-            break
+            
+        case 4:
+            drawView.drawMode = .point
+            fillModeButton.isHidden = true
+            
         default:
             drawView.drawMode = .draw
             fillModeButton.isHidden = true
