@@ -260,7 +260,7 @@ open class SwiftyDrawView: UIView {
             
             path.addEllipse(in: bounds)
             
-            let newLine = DrawItem(path: path, brush: brush, isFillPath: shouldFillPath)
+            let newLine = DrawItem(path: path, brush: brush, isFillPath: true)
             
             addLine(newLine)
                         
